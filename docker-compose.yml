@@ -1,0 +1,56 @@
+version: "3.9"
+
+networks:
+  jservice:
+    driver: bridge
+
+services:
+  jservice:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - ./bundle:/usr/local/bundle
+      - ./src:/src
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - FSETID
+      - SETUID
+      - SETGID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges=true
+    expose:
+      - "3000"
+    ports:
+      - 8888:3000 # host:container
+    shm_size: "1gb"
+    # user: "995:994" # docker-firefox-user:docker-firefox-user
+    networks:
+      - jservice
+  db:
+    image: postgres:12-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=rinnesshortbread
+      - POSTGRES_PASSWORD=concedehump
+      - POSTGRES_DB=jarchive_development
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - FSETID
+      - SETUID
+      - SETGID
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges=true
+    networks:
+      - jservice
