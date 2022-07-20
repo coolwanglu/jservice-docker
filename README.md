@@ -16,7 +16,7 @@ It allowes you to host jservice.io (trivia API) in your own Docker container.
 1. Note: you are now back to your host, still in jservice-docker
 1. `sudo cp override/database.yml src/jService/config/database.yml`
 1. `sudo cp override/postgresql_adapter.rb bundle/gems/activerecord-4.0.2/lib/active_record/connection_adapters/postgresql_adapter.rb`
-1. `sudo cp override/get_latet.rake src/jService/lib/tasks/get_latest.rake` 
+1. `sudo cp override/get_latest.rake src/jService/lib/tasks/get_latest.rake` 
 1. `sudo docker-compose run jservice /bin/bash`
 1. Note: you are now inside a container shell
 1. `rake db:schema:load`
