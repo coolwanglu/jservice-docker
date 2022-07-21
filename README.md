@@ -1,7 +1,7 @@
 # About this Repo
 It allows you to host [jservice.io](https://github.com/sottenad/jService) (trivia API) in your own Docker container.
 
-# Instructions (need lots of optimization)
+# Instructions
 
 1. git clone this repo
 1. `cd jservice-docker`
