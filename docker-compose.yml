@@ -21,12 +21,9 @@ services:
       - ALL
     security_opt:
       - no-new-privileges=true
-    expose:
-      - "3000"
     ports:
       - 8888:3000 # host:container
     shm_size: "1gb"
-    # user: "995:994" # docker-firefox-user:docker-firefox-user
     networks:
       - jservice
   db:
