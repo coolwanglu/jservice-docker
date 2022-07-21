@@ -1,5 +1,5 @@
 # About this Repo
-It allowes you to host jservice.io (trivia API) in your own Docker container.
+It allows you to host [jservice.io](https://github.com/sottenad/jService) (trivia API) in your own Docker container.
 
 # Instructions (need lots of optimization)
 
