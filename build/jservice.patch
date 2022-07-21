@@ -1,0 +1,51 @@
+diff --git a/config/database.yml b/config/database.yml
+index 20fc7af..3edae66 100644
+--- a/config/database.yml
++++ b/config/database.yml
+@@ -4,8 +4,10 @@ development:
+   encoding: unicode
+   database: jarchive_development
+   pool: 5
+-  username: steveo	
+-  password: stepheno
++  # wl: overridden username/password/host
++  username: rinnesshortbread
++  password: concedehump
++  host: db
+ 
+ # Warning: The database defined as "test" will be erased and
+ # re-generated from your development database when you run "rake".
+diff --git a/lib/tasks/get_latest.rake b/lib/tasks/get_latest.rake
+index a3868e5..2474dac 100644
+--- a/lib/tasks/get_latest.rake
++++ b/lib/tasks/get_latest.rake
+@@ -14,8 +14,12 @@
+   	  	#get game list
+   	  	gameIds = Array.new
+ 	  	for i in args.arg1.to_i..args.arg2.to_i
+-	  		seasonsUrl = 'http://j-archive.com/showseason.php?season='+i.to_s
+-	  		seasonList = Nokogiri::HTML(open(seasonsUrl))
++                        # wl: changed from http to https
++	  		# seasonsUrl = 'http://j-archive.com/showseason.php?season='+i.to_s
++	  		seasonsUrl = 'https://j-archive.com/showseason.php?season='+i.to_s
++                        # wl: disabled ssl verification
++	  		# seasonList = Nokogiri::HTML(open(seasonsUrl))
++	  		seasonList = Nokogiri::HTML(open(seasonsUrl ,{ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}))
+ 	  		linkList = seasonList.css('table td a')
+ 	  		linkList.each do |ll|
+ 	  			href = ll.attr('href');
+@@ -26,8 +30,12 @@
+ 	  	end
+ 	  	
+ 	  	gameIds.each do |gid|
+-		  	gameurl = 'http://www.j-archive.com/showgame.php?game_id='+gid.to_s
+-		  	game = Nokogiri::HTML(open(gameurl))
++                        # wl: changed from http to https
++		  	#gameurl = 'http://www.j-archive.com/showgame.php?game_id='+gid.to_s
++		  	gameurl = 'https://www.j-archive.com/showgame.php?game_id='+gid.to_s
++                        # wl: disabled ssl verification
++		  	# game = Nokogiri::HTML(open(gameurl))
++		  	game = Nokogiri::HTML(open(gameurl, {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}))
+ 		  	
+ 		  	## OK, were going to do this twice, once for each round
+ 		  	questions = game.css("#jeopardy_round .clue")

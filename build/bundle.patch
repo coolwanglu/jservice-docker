@@ -1,0 +1,15 @@
+diff --git a/usr/local/bundle/gems/activerecord-4.0.2/lib/active_record/connection_adapters/postgresql_adapter.rb b/usr/local/bundle/gems/activerecord-4.0.2/lib/active_record/connection_adapters/postgresql_adapter.rb
+index d8a5e88..720df4b 100644
+--- a/usr/local/bundle/gems/activerecord-4.0.2/lib/active_record/connection_adapters/postgresql_adapter.rb
++++ b/usr/local/bundle/gems/activerecord-4.0.2/lib/active_record/connection_adapters/postgresql_adapter.rb
+@@ -605,7 +605,9 @@ module ActiveRecord
+ 
+       # Enable standard-conforming strings if available.
+       def set_standard_conforming_strings
+-        old, self.client_min_messages = client_min_messages, 'panic'
++        # wl: quick fix
++        # old, self.client_min_messages = client_min_messages, 'panic'
++        old, self.client_min_messages = client_min_messages, 'warning'
+         execute('SET standard_conforming_strings = on', 'SCHEMA') rescue nil
+       ensure
+         self.client_min_messages = old
