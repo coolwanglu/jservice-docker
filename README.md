@@ -5,6 +5,7 @@ It allowes you to host jservice.io (trivia API) in your own Docker container.
 
 1. git clone this repo
 1. `cd jservice-docker`
+1. (optional) edit username & password in `docker-compose.yml` and `patches/jservice.patch`
 1. `sudo docker-compose up -d db`
 1. `sudo docker-compose build jservice`
 1. `sudo docker-compose run --rm jservice rake db:schema:load`
