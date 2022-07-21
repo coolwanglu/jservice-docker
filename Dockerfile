@@ -2,15 +2,15 @@ FROM ruby:2.2
 
 ENV GEM_HOME="/usr/local/bundle"
 ENV PATH $GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH
-COPY build /
+COPY patches /patches/
 WORKDIR /src
 RUN \
   git clone https://github.com/sottenad/jService.git && \
   cd jService && \
   bundle install && \ 
-  patch -p1 < /build/jservice.patch && \
+  patch -p1 < /patches/jservice.patch && \
   cd / && \
-  patch -p1 < /build/bundle.patch
+  patch -p1 < /patches/bundle.patch
 
 WORKDIR /src/jService
 
